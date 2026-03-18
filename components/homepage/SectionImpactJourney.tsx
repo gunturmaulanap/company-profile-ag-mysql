@@ -93,7 +93,7 @@ export default function SectionImpactJourney({
 
         safeFromTo(
           imageWrap,
-          { clipPath: "inset(0 100% 0 0)", y: 40 },
+          { clipPath: "inset(0 100% 0 0)", y: 30 },
           {
             clipPath: "inset(0 0% 0 0)",
             y: 0,
@@ -115,7 +115,7 @@ export default function SectionImpactJourney({
         );
         safeFromTo(
           number,
-          { y: -20, opacity: 0 },
+          { y: -18, opacity: 0 },
           {
             y: 0,
             opacity: 0.14,

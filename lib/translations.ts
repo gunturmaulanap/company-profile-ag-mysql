@@ -370,7 +370,8 @@ export const copy: Record<Locale, Copy> = {
           "The company was established under the name PT. Adibayu Gajah Semakmur on February 5, 2024. It is a holding company that oversees three business areas, namely manufacturing, distribution, and retail. The company is committed to growing together with all of its entities to shape the nation's future generations.",
         rights: "Adibayu Group. All rights reserved.",
         connectTitle: "Connect",
-        connectDescription: "Be part of our enthusiastic community that is interconnected in the vision of a sustainable future.",
+        connectDescription:
+          "Be part of our enthusiastic community that is interconnected in the vision of a sustainable future.",
         contactUs: "Contact Us",
         businessLinks: [
           "Manufacturing",
@@ -697,7 +698,8 @@ export const copy: Record<Locale, Copy> = {
           "Perseroan didirikan dengan nama PT. Adibayu Gajah Semakmur pada tanggal 5 Februari 2024. Menjadi sebuah holding company yang menaungi tiga bidang perusahaan yakni manufaktur, distribusi, dan retail. Perusahaan berkomitmen untuk berkembang bersama seluruh entitas perusahaan untuk membentuk generasi bangsa.",
         rights: "Adibayu Group. Seluruh hak cipta dilindungi.",
         connectTitle: "Terhubung",
-        connectDescription: "Jadilah bagian dari komunitas antusias kami yang saling terhubung dalam visi masa depan yang berkelanjutan.",
+        connectDescription:
+          "Jadilah bagian dari komunitas antusias kami yang saling terhubung dalam visi masa depan yang berkelanjutan.",
         contactUs: "Hubungi Kami",
         businessLinks: ["Manufaktur", "Distribusi", "Ritel", "Ekosistem Nilai"],
         whoLinks: [

@@ -90,21 +90,21 @@ export default function Footer({ locale = "id" }: FooterProps) {
                 icon={<Twitter className="w-4 h-4" />}
                 ariaLabel="X"
               /> */}
-            <SocialLink
+            {/* <SocialLink
               href="https://facebook.com"
               icon={<Facebook className="w-4 h-4" />}
               ariaLabel="Facebook"
-            />
+            /> */}
             <SocialLink
               href="https://linkedin.com"
               icon={<Linkedin className="w-4 h-4" />}
               ariaLabel="LinkedIn"
             />
-            <SocialLink
+            {/* <SocialLink
               href="https://youtube.com"
               icon={<Youtube className="w-4 h-4" />}
               ariaLabel="YouTube"
-            />
+            /> */}
 
             <div className="ml-auto w-full sm:w-auto mt-4 sm:mt-0">
               <Link

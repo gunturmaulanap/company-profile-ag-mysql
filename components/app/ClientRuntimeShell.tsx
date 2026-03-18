@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import SmoothScroll from "@/components/SmoothScroll";
+import { usePathname } from "next/navigation"; // <-- TAMBAHAN: Import usePathname
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import GlobalRouteTransition from "@/components/ui/GlobalRouteTransition";
 import DebugGlobalTraceHooks from "@/components/debug/DebugGlobalTraceHooks";
 import DebugTraceOverlay from "@/components/debug/DebugTraceOverlay";
@@ -25,10 +26,9 @@ function hasDebugFlag() {
 export default function ClientRuntimeShell({
   children,
 }: ClientRuntimeShellProps) {
+  const pathname = usePathname(); // <-- TAMBAHAN: Dapatkan URL saat ini
   const [hasMounted, setHasMounted] = useState(false);
   const [enableSmoothScroll, setEnableSmoothScroll] = useState(false);
-  //   const [enableGlobalRouteTransition, setEnableGlobalRouteTransition] =
-  useState(false);
   const [enableDebugUi, setEnableDebugUi] = useState(false);
 
   useEffect(() => {
@@ -44,22 +44,30 @@ export default function ClientRuntimeShell({
 
     const iPhone = isIPhoneWebKit();
 
-    const smoothScrollBlocked =
-      iPhone || reducedMotion || isSubsystemDisabled("smoothScroll");
+    // PERBAIKAN UTAMA: Deteksi apakah user sedang di halaman admin atau login
+    const isAdminRoute =
+      pathname?.startsWith("/admin") || pathname?.startsWith("/login");
 
-    const routeTransitionBlocked =
-      iPhone || isSubsystemDisabled("globalRouteTransition");
+    // Jika di halaman admin/login, Lenis (Smooth Scroll) otomatis diblokir
+    const smoothScrollBlocked =
+      iPhone ||
+      reducedMotion ||
+      isAdminRoute ||
+      isSubsystemDisabled("smoothScroll");
 
     setEnableSmoothScroll(!smoothScrollBlocked);
-    // setEnableGlobalRouteTransition(!routeTransitionBlocked);
     setEnableDebugUi(process.env.NODE_ENV !== "production" || hasDebugFlag());
-  }, [hasMounted]);
+  }, [hasMounted, pathname]); // <-- TAMBAHAN: Pantau perubahan pathname
 
   return (
     <>
       {/* {enableDebugUi && <DebugGlobalTraceHooks />} */}
 
-      <SmoothScroll enabled={enableSmoothScroll}>{children}</SmoothScroll>
+      {enableSmoothScroll ? (
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      ) : (
+        children // <-- Jika di /admin, langsung render tanpa Lenis
+      )}
 
       {/* {enableGlobalRouteTransition && <GlobalRouteTransition />} */}
 

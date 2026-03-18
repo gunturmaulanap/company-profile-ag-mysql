@@ -163,28 +163,6 @@ export const whoWeArePortfolioCompanies = [
       "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80",
   },
   {
-    id: "nakama",
-    name: "Nakama Alam Asri",
-    category: { en: "Retail Herbal", id: "Ritel Herbal" },
-    summary: {
-      en: "Nakama develops herbal retail products and experiences designed to improve everyday wellness through quality and trusted service.",
-      id: "Nakama mengembangkan produk dan pengalaman ritel herbal yang dirancang untuk meningkatkan kualitas hidup sehari-hari melalui mutu dan layanan terpercaya.",
-    },
-    imageUrl:
-      "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
-    id: "habbie",
-    name: "Habbie",
-    category: { en: "FMCG Aromatic", id: "FMCG Aromatik" },
-    summary: {
-      en: "Habbie builds aromatic FMCG offerings that combine market relevance, product consistency, and scalable distribution.",
-      id: "Habbie membangun produk FMCG aromatik yang memadukan relevansi pasar, konsistensi produk, dan distribusi yang skalabel.",
-    },
-    imageUrl:
-      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80",
-  },
-  {
     id: "achievement",
     name: "Achievement Abadi Logistik",
     category: { en: "Distribution", id: "Distribusi" },
@@ -197,7 +175,7 @@ export const whoWeArePortfolioCompanies = [
   },
   {
     id: "satyalaksana",
-    name: "Satyalaksana Adibadri",
+    name: "Satyalaksana Sangkala Adikarim Perkasa",
     category: { en: "Retail FMCG", id: "Ritel FMCG" },
     summary: {
       en: "Satyalaksana manages FMCG retail channels to ensure product accessibility, customer focus, and sustainable commercial growth.",
@@ -207,8 +185,19 @@ export const whoWeArePortfolioCompanies = [
       "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
   },
   {
+    id: "habbie",
+    name: "Habbie Bangun Aromatik",
+    category: { en: "FMCG Aromatic", id: "FMCG Aromatik" },
+    summary: {
+      en: "Habbie builds aromatic FMCG offerings that combine market relevance, product consistency, and scalable distribution.",
+      id: "Habbie membangun produk FMCG aromatik yang memadukan relevansi pasar, konsistensi produk, dan distribusi yang skalabel.",
+    },
+    imageUrl:
+      "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
     id: "realhe",
-    name: "Realhe",
+    name: "Realhe Adhiri Alam",
     category: { en: "Digital Growth", id: "Pertumbuhan Digital" },
     summary: {
       en: "Realhe accelerates digital growth initiatives by combining data-driven marketing, agile experimentation, and cross-channel execution.",
@@ -216,6 +205,17 @@ export const whoWeArePortfolioCompanies = [
     },
     imageUrl:
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
+  },
+  {
+    id: "nakama",
+    name: "Nakama Alam Asri",
+    category: { en: "Retail Herbal", id: "Ritel Herbal" },
+    summary: {
+      en: "Nakama develops herbal retail products and experiences designed to improve everyday wellness through quality and trusted service.",
+      id: "Nakama mengembangkan produk dan pengalaman ritel herbal yang dirancang untuk meningkatkan kualitas hidup sehari-hari melalui mutu dan layanan terpercaya.",
+    },
+    imageUrl:
+      "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=1200&q=80",
   },
 ] as const;
 

@@ -5,6 +5,7 @@ export type Insight = {
   excerpt: string;
   content: string;
   category: "Corporate Strategy" | "Operations" | "Market" | "Sustainability";
+  published_at: string; // <--- Tambahkan baris ini
   date: string;
   coverImageUrl: string;
 };

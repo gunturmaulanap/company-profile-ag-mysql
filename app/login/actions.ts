@@ -2,6 +2,7 @@
 
 import { AuthError } from "next-auth";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 import { signIn, signOut } from "@/auth";
 
 function isRedirectErrorLike(error: unknown): boolean {
@@ -59,5 +60,10 @@ export async function signInAction(
 }
 
 export async function signOutAction() {
+  // Clear the server-side cache for admin routes
+  revalidatePath("/admin", "layout");
+  revalidatePath("/", "layout");
+
+  // Sign out and redirect to login
   await signOut({ redirectTo: "/login" });
 }

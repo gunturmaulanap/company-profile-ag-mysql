@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import NewsFilter from "@/components/news/NewsFilter";
 import { useLocale } from "@/lib/i18n";
 import type { Insight } from "@/lib/content";
+import type { ContactLocale } from "@/components/contact/types";
 import { motion } from "framer-motion";
 
 type NewsPageClientProps = {
@@ -30,8 +31,7 @@ export default function NewsPageClient({ insights }: NewsPageClientProps) {
       : "Latest developments and strategic updates from our ecosystem.";
 
   return (
-    // Background statis agar tidak ada kedipan
-    <main className="min-h-screen bg-white text-navy">
+    <main className="min-h-screen bg-white text-navy overflow-hidden">
       <MenuOverlayPage />
 
       <section className="mx-auto max-w-[1400px] px-6 md:px-12 pt-32 md:pt-40 pb-16 md:pb-24">
@@ -41,16 +41,15 @@ export default function NewsPageClient({ insights }: NewsPageClientProps) {
           animate="visible"
           variants={headerVariants}
         >
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-navy mb-4">
+          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight text-navy mb-4 md:mb-6">
             {title}
           </h1>
-          <p className="text-base md:text-lg font-medium text-gray-600 leading-relaxed max-w-2xl">
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl leading-relaxed">
             {subtitle}
           </p>
         </motion.div>
 
-        {/* Filter & Grid */}
-        <NewsFilter insights={insights} />
+        <NewsFilter insights={insights} locale={locale as ContactLocale} />
       </section>
 
       <Footer locale={locale} />

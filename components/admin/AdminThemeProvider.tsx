@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useState,
 } from "react";
@@ -90,7 +91,18 @@ export function AdminThemeProvider({
   defaultTheme?: "light" | "dark" | "system";
   respectStoredTheme?: boolean;
 }) {
-  const [theme, setThemeState] = useState<AdminTheme>("light");
+  const [theme, setThemeState] = useState<AdminTheme>(() => {
+    const storedTheme = respectStoredTheme ? getStoredTheme() : null;
+
+    return (
+      storedTheme ??
+      (defaultTheme === "system" ? getSystemTheme() : defaultTheme)
+    );
+  });
+
+  useLayoutEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   useEffect(() => {
     const storedTheme = respectStoredTheme ? getStoredTheme() : null;
@@ -98,8 +110,9 @@ export function AdminThemeProvider({
       storedTheme ??
       (defaultTheme === "system" ? getSystemTheme() : defaultTheme);
 
-    setThemeState(initialTheme);
-    applyTheme(initialTheme);
+    if (initialTheme !== theme) {
+      setThemeState(initialTheme);
+    }
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -109,7 +122,6 @@ export function AdminThemeProvider({
       if (!stored && defaultTheme === "system") {
         const nextTheme: AdminTheme = event.matches ? "dark" : "light";
         setThemeState(nextTheme);
-        applyTheme(nextTheme);
       }
     };
 
@@ -118,12 +130,11 @@ export function AdminThemeProvider({
     return () => {
       mediaQuery.removeEventListener("change", handleSystemChange);
     };
-  }, [defaultTheme, respectStoredTheme]);
+  }, [defaultTheme, respectStoredTheme, theme]);
 
   const setTheme = useCallback((nextTheme: AdminTheme) => {
     setThemeState(nextTheme);
     setStoredTheme(nextTheme);
-    applyTheme(nextTheme);
   }, []);
 
   const toggleTheme = useCallback(() => {

@@ -87,6 +87,7 @@ export default function SectionPortfolioStats({
           opacity: 1,
           duration: 0.9,
           stagger: 0.08,
+          ease: "power2.out",
           scrollTrigger: { trigger: scopeRef.current, start: "top 75%" },
         },
       );

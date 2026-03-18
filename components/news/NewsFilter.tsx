@@ -8,6 +8,7 @@ import NewsCard from "@/components/news/NewsCard";
 
 type NewsFilterProps = {
   insights: Insight[];
+  locale?: string; // <--- Tambahkan baris ini
 };
 
 // Transisi Halus Kelas Enterprise

@@ -77,31 +77,56 @@ const RIGHT_COLUMN = AWARDS.slice(Math.ceil(AWARDS.length / 2));
 
 const variants = {
   sectionHeader: {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6, ease: [0.25, 0.1, 0.25, 1] },
+      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
     },
   },
   subtitle: {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],
+        delay: 0.12,
+      },
+    },
   },
   column: {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.3 },
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],
+        staggerChildren: 0.1,
+        delayChildren: 0.18,
+      },
     },
   },
   awardRow: {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.4 } },
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+    },
   },
   footer: {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.8 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.1, 0.25, 1],
+        delay: 0.3,
+      },
+    },
   },
 };
 
@@ -123,7 +148,12 @@ export default function Recognition({ locale }: RecognitionProps) {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0, delayChildren: 0 },
+              transition: {
+                duration: 0.8,
+                ease: [0.25, 0.1, 0.25, 1],
+                staggerChildren: 0,
+                delayChildren: 0,
+              },
             },
           }
         : variants.column,
@@ -160,25 +190,26 @@ export default function Recognition({ locale }: RecognitionProps) {
       className="py-20 md:py-24 bg-white"
     >
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        <motion.div
-          className="mb-12 md:mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-        >
+        <div className="mb-12 md:mb-16">
           <motion.h2
             className="text-4xl md:text-5xl font-bold tracking-tight text-gray-900"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={variants.sectionHeader}
           >
             {t.title}
           </motion.h2>
           <motion.p
             className="mt-4 text-base md:text-lg leading-relaxed max-w-2xl text-gray-400"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
             variants={variants.subtitle}
           >
             {t.subtitle}
           </motion.p>
-        </motion.div>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 lg:gap-x-12">
           <motion.div

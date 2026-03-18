@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Newspaper, Tags, LogOut, WalletMinimal } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Newspaper, Tags, LogOut, WalletMinimal, Loader2 } from "lucide-react";
 import { signOutAction } from "@/app/login/actions";
 import { toast } from "sonner";
+import { useFormStatus } from "react-dom";
 
 import {
   Sidebar,
@@ -26,6 +27,55 @@ const contentNav = [
   { title: "News", href: "/admin/posts", icon: Newspaper },
   { title: "Categories", href: "/admin/categories", icon: Tags },
 ];
+
+// Logout button component with loading state
+function LogoutButtonContent() {
+  const { pending } = useFormStatus();
+
+  return (
+    <>
+      {pending ? (
+        <Loader2 className="animate-spin" />
+      ) : (
+        <LogOut />
+      )}
+      <span>{pending ? "Logging out..." : "Logout"}</span>
+    </>
+  );
+}
+
+function LogoutButton() {
+  const router = useRouter();
+  const { isMobile, setOpenMobile } = useSidebar();
+
+  const handleSubmit = async (formData: FormData) => {
+    // Show immediate feedback
+    toast.info("Logging out...", {
+      duration: 2000,
+    });
+
+    // Close sidebar on mobile
+    if (isMobile) setOpenMobile(false);
+
+    // Call the server action - it will handle redirect
+    await signOutAction();
+
+    // Refresh the router to clear any cached authenticated data
+    router.refresh();
+  };
+
+  return (
+    <form action={handleSubmit}>
+      <SidebarMenuButton
+        type="submit"
+        tooltip="Logout"
+        className="transition-all duration-200"
+      >
+        <LogoutButtonContent />
+      </SidebarMenuButton>
+    </form>
+  );
+}
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -119,18 +169,7 @@ export function AppSidebar() {
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <form
-              action={signOutAction}
-              onSubmit={() => {
-                toast.info("Signing out...");
-                closeSidebarOnMobile();
-              }}
-            >
-              <SidebarMenuButton type="submit" tooltip="Logout">
-                <LogOut />
-                <span>Logout</span>
-              </SidebarMenuButton>
-            </form>
+            <LogoutButton />
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

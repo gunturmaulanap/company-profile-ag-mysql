@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import ReCAPTCHA from "react-google-recaptcha";
@@ -44,6 +45,8 @@ export default function ContactFormSection({
   submitMessage = null,
   submitStatus = null,
 }: ContactFormSectionProps) {
+  const [captchaBlocked, setCaptchaBlocked] = useState(false);
+
   // Ambil Site Key dari Environment Variable (fallback string kosong agar aman)
   const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
   const contactSelectContentClass =
@@ -321,16 +324,27 @@ export default function ContactFormSection({
           </div>
 
           {/* Area reCAPTCHA */}
-          {recaptchaSiteKey && (
+          {recaptchaSiteKey && !captchaBlocked && (
             <div className="pt-4 flex sm:justify-end">
               <ReCAPTCHA
                 sitekey={recaptchaSiteKey}
                 // PERBAIKAN TYPESCRIPT: Memaksa TypeScript menerima parameter yang dikirim oleh ReCAPTCHA
                 onChange={(token: string | null) => onCaptchaChange(token)}
+                onErrored={() => {
+                  setCaptchaBlocked(true);
+                  onCaptchaChange(null);
+                }}
                 hl={locale === "id" ? "id" : "en"}
               />
             </div>
           )}
+
+          {captchaBlocked ? (
+            <p className="text-xs text-amber-700 sm:text-right">
+              reCAPTCHA was blocked by browser protection or an extension.
+              Please allow Google scripts for this site to enable verification.
+            </p>
+          ) : null}
 
           {/* ACTION BUTTONS */}
           <div className="flex flex-col-reverse gap-4 sm:flex-row sm:items-center sm:justify-end pt-4">

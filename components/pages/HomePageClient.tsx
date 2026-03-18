@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { useLocale } from "@/lib/i18n";
 import type { Locale } from "@/lib/i18n";
+import type { Insight } from "@/lib/content";
 import Hero from "@/components/homepage/Hero";
 import { usePathname } from "next/navigation";
 
+// Dynamic import
 const MenuOverlay = dynamic(() => import("@/components/MenuOverlay"), {
   ssr: false,
 });
@@ -27,9 +29,7 @@ const SectionImpactJourney = dynamic(
 );
 const BrandsEcosystem = dynamic(
   () => import("@/components/homepage/BrandsEcosystem"),
-  {
-    ssr: false,
-  },
+  { ssr: false },
 );
 const SectionSustainability = dynamic(
   () => import("@/components/homepage/SectionSustainability"),
@@ -39,9 +39,7 @@ const SectionGrowCareer = dynamic(
   () => import("@/components/homepage/SectionGrowCareer"),
   { ssr: false },
 );
-const NewsUpdate = dynamic(() => import("@/components/homepage/NewsUpdate"), {
-  ssr: false,
-});
+const NewsUpdate = dynamic(() => import("@/components/homepage/NewsUpdate"));
 const Footer = dynamic(() => import("@/components/Footer"), { ssr: false });
 
 function normalizePathname(value: string) {
@@ -50,88 +48,24 @@ function normalizePathname(value: string) {
   return withoutLocale === "" ? "/" : withoutLocale;
 }
 
-function SafeLazyWrapper({
-  children,
-  delayMs = 120,
-}: {
-  children: React.ReactNode;
-  delayMs?: number;
-}) {
-  const hostRef = useRef<HTMLDivElement | null>(null);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const timerRef = useRef<number | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+type HomePageClientProps = {
+  insights: Insight[];
+};
 
-  useEffect(() => {
-    if (isVisible || !hostRef.current) return;
-
-    observerRef.current = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-
-        timerRef.current = window.setTimeout(() => {
-          setIsVisible(true);
-        }, delayMs);
-
-        observerRef.current?.disconnect();
-      },
-      { rootMargin: "300px" },
-    );
-
-    observerRef.current.observe(hostRef.current);
-
-    return () => {
-      observerRef.current?.disconnect();
-      if (timerRef.current !== null) {
-        window.clearTimeout(timerRef.current);
-      }
-    };
-  }, [delayMs, isVisible]);
-
-  return (
-    <div ref={hostRef} className="w-full min-h-[30vh]">
-      {isVisible ? children : null}
-    </div>
-  );
-}
-
-export default function HomePageClient() {
+export default function HomePageClient({ insights }: HomePageClientProps) {
   const { locale } = useLocale();
   const rawPathname = usePathname();
   const pathname = normalizePathname(rawPathname);
 
-  const [hasMounted, setHasMounted] = useState(false);
   const [isSterilizing, setIsSterilizing] = useState(false);
-  const [isMobileViewport, setIsMobileViewport] = useState(false);
 
   useEffect(() => {
-    setHasMounted(true);
-
-    const updateViewport = () => {
-      try {
-        setIsMobileViewport(window.innerWidth < 1024);
-      } catch {
-        setIsMobileViewport(false);
-      }
-    };
-
-    updateViewport();
-
     try {
       if (typeof window !== "undefined" && "scrollRestoration" in history) {
         history.scrollRestoration = "manual";
       }
-    } catch {}
-
-    try {
       window.scrollTo(0, 0);
     } catch {}
-
-    window.addEventListener("resize", updateViewport, { passive: true });
-
-    return () => {
-      window.removeEventListener("resize", updateViewport);
-    };
   }, []);
 
   useEffect(() => {
@@ -143,17 +77,12 @@ export default function HomePageClient() {
     };
 
     window.addEventListener("adb-route-start", handleRouteStart);
-
-    return () => {
+    return () =>
       window.removeEventListener("adb-route-start", handleRouteStart);
-    };
   }, []);
 
   useEffect(() => {
     setIsSterilizing(false);
-    try {
-      window.scrollTo(0, 0);
-    } catch {}
   }, [pathname]);
 
   const sections = useMemo(
@@ -166,10 +95,7 @@ export default function HomePageClient() {
         key: "portfolio-stats",
         node: <SectionPortfolioStats locale={locale as Locale} />,
       },
-      {
-        key: "recognition",
-        node: <Recognition locale={locale as Locale} />,
-      },
+      { key: "recognition", node: <Recognition locale={locale as Locale} /> },
       {
         key: "impact-journey",
         node: <SectionImpactJourney locale={locale as Locale} />,
@@ -190,13 +116,13 @@ export default function HomePageClient() {
         key: "news-footer",
         node: (
           <>
-            <NewsUpdate locale={locale as Locale} />
+            <NewsUpdate locale={locale as Locale} insights={insights} />
             <Footer locale={locale as Locale} />
           </>
         ),
       },
     ],
-    [locale],
+    [locale, insights],
   );
 
   return (
@@ -208,17 +134,12 @@ export default function HomePageClient() {
           <>
             <Hero locale={locale as Locale} />
 
-            {hasMounted &&
-              sections.map((section, index) => (
-                <SafeLazyWrapper
-                  key={section.key}
-                  delayMs={
-                    isMobileViewport ? 160 + index * 30 : 100 + index * 16
-                  }
-                >
-                  {section.node}
-                </SafeLazyWrapper>
-              ))}
+            {/* PERBAIKAN: Render langsung tanpa menunggu hasMounted */}
+            {sections.map((section) => (
+              <div key={section.key} className="w-full">
+                {section.node}
+              </div>
+            ))}
           </>
         ) : (
           <div className="min-h-screen w-full" aria-hidden="true" />

@@ -96,18 +96,18 @@ export default function SectionBusinesses({
 
       safeFromTo(
         title,
-        { y: 50, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 1.5,
+          duration: 1,
           ease: "power3.out",
           scrollTrigger: { trigger: scopeRef.current, start: "top 70%" },
         },
       );
       safeFromTo(
         cards,
-        { y: 100, opacity: 0 },
+        { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,

@@ -50,7 +50,7 @@ export default function SectionEditorial({
 
       safeFromTo(
         quote,
-        { y: 58, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -73,7 +73,7 @@ export default function SectionEditorial({
       );
       safeFromTo(
         number,
-        { y: -40, opacity: 0 },
+        { y: -30, opacity: 0 },
         {
           y: 0,
           opacity: 0.2,
