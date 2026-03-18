@@ -103,6 +103,7 @@ function mapPostToInsight(post: AdminPost): Insight {
     title: post.title,
     excerpt: post.title,
     content: post.content,
+    published_at: normalizedDate,
     category:
       post.category === "Operations" ||
       post.category === "Market" ||
@@ -184,12 +185,19 @@ export async function listPostsSummary(): Promise<AdminPostSummary[]> {
       orderBy: { updatedAt: "desc" },
     });
 
-    return posts.map((post) => ({
-      id: post.id,
-      title: post.title,
-      status: post.status === "published" ? "published" : "draft",
-      updated_at: post.updatedAt.toISOString(),
-    }));
+    return posts.map(
+      (post: {
+        id: number;
+        title: string;
+        status: string;
+        updatedAt: Date;
+      }) => ({
+        id: post.id,
+        title: post.title,
+        status: post.status === "published" ? "published" : "draft",
+        updated_at: post.updatedAt.toISOString(),
+      }),
+    );
   } catch {
     return sortByUpdatedAt(localPosts).map((post) => ({
       id: post.id,
