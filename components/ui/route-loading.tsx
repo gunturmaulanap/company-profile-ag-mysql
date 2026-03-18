@@ -60,7 +60,6 @@ export default function RouteLoading({
 
         animationRef.current = lottie.loadAnimation({
           container: containerRef.current,
-          // PERBAIKAN MUTLAK IOS: Harus SVG, jangan pernah Canvas!
           renderer: "svg",
           loop: !deviceProfile.prefersReducedMotion,
           autoplay: false,
@@ -80,7 +79,6 @@ export default function RouteLoading({
     };
   }, [disabled, deviceProfile, teardownAnimation]);
 
-  // HARD RESET KE FRAME 0 (Anti-Glitch)
   useEffect(() => {
     if (!playerReady || !animationRef.current) return;
 
@@ -94,7 +92,6 @@ export default function RouteLoading({
     }
   }, [isLoading, playerReady]);
 
-  // Failsafe Timeout
   useEffect(() => {
     if (!isLoading) return;
     const hideTimer = setTimeout(() => onFailsafeHide?.(), 9000);
@@ -105,7 +102,8 @@ export default function RouteLoading({
 
   return (
     <div
-      className={`${fixed ? "fixed" : "absolute"} inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-400 ease-out ${isLoading ? "opacity-100" : "opacity-0 pointer-events-none"} ${className}`}
+      /* PERBAIKAN: Tambahkan transform-gpu dan will-change-[opacity] untuk Hardware Acceleration */
+      className={`${fixed ? "fixed" : "absolute"} inset-0 z-[9999] flex items-center justify-center bg-white transition-opacity duration-300 ease-out transform-gpu will-change-[opacity] ${isLoading ? "opacity-100" : "opacity-0 pointer-events-none"} ${className}`}
     >
       <div className="relative flex flex-col items-center gap-4 px-4">
         <div

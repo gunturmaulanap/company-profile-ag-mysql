@@ -62,7 +62,7 @@ export const whoWeAreCopy: Localized<WhoWeArePageCopy> = {
     presenceTabTitle: "Distribution Centers",
     presenceMapAlt: "Adibayu Group Distribution Centers in Indonesia",
     presenceLead: "Adibayu Group distribution networks operate across",
-    presenceStatLine1: "7 cities in",
+    presenceStatLine1: "8 cities in",
     presenceStatLine2: "Indonesia",
     leadershipTitle: "Leadership",
     leadershipSubtitle:
@@ -99,7 +99,7 @@ export const whoWeAreCopy: Localized<WhoWeArePageCopy> = {
     presenceTabTitle: "Pusat Distribusi",
     presenceMapAlt: "Pusat Distribusi Adibayu Group di Indonesia",
     presenceLead: "Jaringan distribusi Adibayu Group beroperasi di",
-    presenceStatLine1: "7 kota di",
+    presenceStatLine1: "8 kota di",
     presenceStatLine2: "Indonesia",
     leadershipTitle: "Kepemimpinan",
     leadershipSubtitle:

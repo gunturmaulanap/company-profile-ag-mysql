@@ -21,7 +21,6 @@ export default function InitialLoadGate({
 
   useEffect(() => {
     setHydrated(true);
-    // MATIKAN BOOTING PERTAMA KALI DENGAN AMAN
     if (!globalBooted) {
       const timer = setTimeout(() => {
         globalBooted = true;
@@ -31,24 +30,25 @@ export default function InitialLoadGate({
     }
   }, []);
 
-  // HIDUPKAN LOADING SAAT MENU / TOMBOL KLIK (INTERCEPTED)
   useEffect(() => {
     const handleRouteStart = () => {
-      window.scrollTo(0, 0); // Paksa ke atas layar saat transisi
       setIsRouting(true);
+      // PERBAIKAN: Scroll ke atas DITUNDA 300ms sampai layar loading menutupi halaman.
+      // Ini membebaskan GPU dari beban berat sehingga animasi Menu tertutup sangat mulus!
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 300);
     };
     window.addEventListener("adb-route-start", handleRouteStart);
     return () =>
       window.removeEventListener("adb-route-start", handleRouteStart);
   }, []);
 
-  // MATIKAN LOADING SECARA OTOMATIS SETELAH URL BERUBAH (Next.js Selesai Render)
   useEffect(() => {
     if (isBooting) return;
 
     if (prevPathRef.current !== null && prevPathRef.current !== pathname) {
       prevPathRef.current = pathname;
-      // Beri sedikit jeda agar DOM benar-benar selesai dimuat sebelum ditarik layarnya
       const timer = setTimeout(() => setIsRouting(false), 600);
       return () => clearTimeout(timer);
     }
@@ -59,14 +59,7 @@ export default function InitialLoadGate({
 
   return (
     <>
-      {/* KONTEN UTAMA: Akan memudar (fade out) dengan elegan saat loading berjalan */}
-      <div
-        className={`transition-opacity duration-700 ease-[cubic-bezier(0.21,0.47,0.32,0.98)] ${!showLoader ? "opacity-100" : "opacity-0"}`}
-      >
-        {children}
-      </div>
-
-      {/* KOMPONEN LOTTIE LOADING */}
+      {children}
       {hydrated && <RouteLoading isLoading={showLoader} fixed={true} />}
     </>
   );
