@@ -55,7 +55,10 @@ function SafeLazyWrapper({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <div ref={ref} className="w-full min-h-[30vh]">
+    <div
+      ref={ref}
+      className="w-full min-h-0 border-0! outline-none! bg-transparent"
+    >
       {mounted ? children : null}
     </div>
   );

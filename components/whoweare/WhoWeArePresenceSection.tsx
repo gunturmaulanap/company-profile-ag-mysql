@@ -86,7 +86,7 @@ export default function WhoWeArePresenceSection({ locale }: Props) {
   return (
     // SECTION STATIS: Background Navy Murni tanpa efek aneh.
     // pt-32 lg:pt-48 memastikan ada ruang kosong (blank space) yang luas di atas agar menyatu sempurna dengan section sebelumnya.
-    <section className="relative flex w-full flex-col items-center overflow-hidden bg-navy pt-8 pb-24 md:pt-16 md:pb-32">
+    <section className="relative -mt-px flex w-full flex-col items-center overflow-hidden border-t-0! bg-navy pt-8 pb-24 md:pt-16 md:pb-32">
       {/* KONTEN DINAMIS */}
       <motion.div
         className="relative z-10 mx-auto flex w-full max-w-[1400px] flex-col px-6 md:px-12"
