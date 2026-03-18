@@ -49,9 +49,9 @@ export default function MenuOverlay() {
   const links = [
     { name: "Home", href: "/", newTab: false },
     { name: t.whoWeAre, href: "/about", newTab: false },
-    { name: t.governance, href: "/governance", newTab: false },
+    // { name: t.governance, href: "/governance", newTab: false },
     { name: t.insights.trim(), href: "/news", newTab: false },
-    { name: "Career", href: "/career", newTab: true },
+    // { name: "Career", href: "/career", newTab: true },
     { name: "Contact", href: "/contact", newTab: true },
   ];
 
