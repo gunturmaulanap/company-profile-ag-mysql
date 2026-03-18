@@ -34,7 +34,7 @@ export function PostCard({ post, deleteAction }: PostCardProps) {
 
         {/* Metadata: Status + Date */}
         <div className="flex flex-wrap items-center gap-2 mb-4">
-          <Badge variant={isPublished ? "success" : "outline"}>
+          <Badge variant={isPublished ? "default" : "outline"}>
             {post.status}
           </Badge>
           <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
