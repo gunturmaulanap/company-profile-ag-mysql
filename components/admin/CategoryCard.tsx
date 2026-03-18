@@ -2,7 +2,7 @@ import { Tag, Hash } from "lucide-react";
 
 type CategoryCardProps = {
   category: {
-    id: string;
+    id: string | number;
     name: string;
     slug: string;
     description?: string | null;
