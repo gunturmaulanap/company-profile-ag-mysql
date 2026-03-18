@@ -1,0 +1,10 @@
+{
+  "navbar": {
+    "home": "Home",
+    "about": "Tentang",
+    "governance": "Tata Kelola",
+    "news": "Berita",
+    "career": "Karier",
+    "login": "Login"
+  }
+}

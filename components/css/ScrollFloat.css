@@ -1,0 +1,33 @@
+.scroll-float {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.scroll-float-text {
+  display: inline-block;
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 900;
+  text-align: center;
+  line-height: 1.2;
+  color: #1e3a5f;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.char {
+  display: inline-block;
+  will-change: opacity, transform;
+}
+
+@media (min-width: 768px) {
+  .scroll-float-text {
+    font-size: clamp(4rem, 10vw, 10rem);
+  }
+}
+
+@media (min-width: 1024px) {
+  .scroll-float-text {
+    font-size: clamp(2rem, 8vw, 8rem);
+  }
+}

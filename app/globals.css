@@ -1,0 +1,438 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Public palette tokens */
+:root {
+  --color-home-base: #011f37;
+  --color-home-base-light: #e1ecef;
+  --color-home-light: #ffffff;
+  --color-home-soft: #e1ecef;
+  --color-home-surface: #000000;
+  --color-home-hero-primary: #e1ecef;
+  --color-home-hero-secondary: #e1ecef;
+  --color-home-brand-dark: #151922;
+  --color-home-recognition-dark: #0b0f19;
+  --color-home-sustainability-overlay: #011f37;
+  --color-navy: #011f37;
+  --color-home-accent: #1da1f2;
+  --color-home-border-soft: color-mix(in srgb, var(--color-navy) 12%, white);
+  --color-home-shadow: 0 16px 42px
+    color-mix(in srgb, var(--color-navy) 18%, transparent);
+
+  /* shadcn/ui theme variables */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: 210 40% 98%;
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --radius: 0.625rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+/* Admin semantic utility mapping (values are scoped in app/admin/admin-theme.css) */
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-sans);
+}
+
+/* Base Typography & Rendering */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Body Base Styles */
+body {
+  font-family: var(--font-neue-montreal), sans-serif;
+  line-height: 1.5;
+  background-color: var(--color-home-light);
+  color: #ffffff;
+}
+
+/* Text Selection - Global Style untuk consistency */
+::selection {
+  background-color: rgba(1, 31, 55, 0.9); /* navy dengan opacity */
+  color: #ffffff; /* putih untuk kontras maksimal */
+}
+
+::moz-selection {
+  background-color: rgba(1, 31, 55, 0.9);
+  color: #ffffff;
+}
+
+/* Headings use Rift font */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-rift), sans-serif;
+}
+
+/* Ensure consistent box sizing */
+* {
+  box-sizing: border-box;
+}
+
+/* Public reusable section backgrounds */
+.home-bg-base {
+  background-color: var(--color-home-base);
+}
+
+.home-bg-base-light {
+  background-color: var(--color-home-base-light);
+}
+
+.home-base-light {
+  background-color: var(--color-home-base-light);
+}
+
+.home-bg-light {
+  background-color: var(--color-home-light);
+}
+
+.home-hero-main {
+  background-color: var(--color-home-hero-main);
+}
+
+.home-bg-soft {
+  background-color: var(--color-home-soft);
+}
+
+.home-bg-surface {
+  background-color: var(--color-home-surface);
+}
+
+.home-hero-primary {
+  background-color: var(--color-home-hero-primary);
+}
+
+.home-hero-secondary {
+  background-color: var(--color-home-hero-secondary);
+}
+
+.home-brand-dark {
+  background-color: var(--color-home-brand-dark);
+}
+
+.home-recognition-dark {
+  background-color: var(--color-home-recognition-dark);
+}
+
+.home-sustainability-overlay {
+  background-color: var(--color-home-sustainability-overlay);
+}
+
+.home-content-wrap {
+  width: min(1320px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.home-panel {
+  border-radius: 1.25rem;
+  border: 1px solid var(--color-home-border-soft);
+  box-shadow: var(--color-home-shadow);
+}
+
+/* Di globals.css */
+.home-panel-glass {
+  background-color: rgba(255, 255, 255, 0.1);
+  /* HAPUS ATAU COMMENT BARIS INI KARENA SANGAT BERAT SAAT DI SCROLL DI IOS:
+  backdrop-filter: blur(8px); 
+  */
+}
+
+.home-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.15rem;
+  border-width: 2px;
+  border-color: var(--color-navy);
+  color: var(--color-navy);
+  border-radius: 999px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease,
+    background-color 250ms ease,
+    color 250ms ease;
+}
+
+.home-button-outline:hover {
+  background-color: var(--color-navy);
+  color: #ffffff;
+  transform: translateY(-1px) scale(1.01);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-navy) 24%, transparent);
+}
+
+.home-slider-title {
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+}
+
+.home-slider-nav {
+  background: color-mix(in srgb, #ffffff 68%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-navy) 14%, transparent);
+  border-radius: 999px;
+}
+
+.home-slider-nav:hover {
+  background: #ffffff;
+}
+
+.home-footer-shell {
+  border-top: 1px solid color-mix(in srgb, var(--color-navy) 14%, transparent);
+  background:
+    radial-gradient(
+      100% 100% at 100% 0%,
+      color-mix(in srgb, var(--color-home-base) 100%, transparent),
+      transparent 100%
+    ),
+    var(--color-home-base);
+}
+
+/* Navy color utility */
+.bg-navy {
+  background-color: var(--color-navy);
+}
+
+.text-navy {
+  color: var(--color-navy);
+}
+
+.text-navy\/15 {
+  color: color-mix(in srgb, var(--color-navy) 15%, transparent);
+}
+
+.text-navy\/50 {
+  color: color-mix(in srgb, var(--color-navy) 50%, transparent);
+}
+
+.text-navy\/60 {
+  color: color-mix(in srgb, var(--color-navy) 60%, transparent);
+}
+
+.text-navy\/70 {
+  color: color-mix(in srgb, var(--color-navy) 70%, transparent);
+}
+
+.text-navy\/80 {
+  color: color-mix(in srgb, var(--color-navy) 80%, transparent);
+}
+
+.text-navy\/85 {
+  color: color-mix(in srgb, var(--color-navy) 85%, transparent);
+}
+
+.bg-navy\/5 {
+  background-color: color-mix(in srgb, var(--color-navy) 5%, transparent);
+}
+
+.bg-navy\/10 {
+  background-color: color-mix(in srgb, var(--color-navy) 10%, transparent);
+}
+
+.bg-navy\/20 {
+  background-color: color-mix(in srgb, var(--color-navy) 20%, transparent);
+}
+
+.bg-navy\/30 {
+  background-color: color-mix(in srgb, var(--color-navy) 30%, transparent);
+}
+
+.bg-navy\/40 {
+  background-color: color-mix(in srgb, var(--color-navy) 40%, transparent);
+}
+
+.bg-navy\/50 {
+  background-color: color-mix(in srgb, var(--color-navy) 50%, transparent);
+}
+
+.bg-navy\/60 {
+  background-color: color-mix(in srgb, var(--color-navy) 60%, transparent);
+}
+
+.bg-navy\/70 {
+  background-color: color-mix(in srgb, var(--color-navy) 70%, transparent);
+}
+
+.bg-navy\/80 {
+  background-color: color-mix(in srgb, var(--color-navy) 80%, transparent);
+}
+
+.bg-navy\/90 {
+  background-color: color-mix(in srgb, var(--color-navy) 90%, transparent);
+}
+
+.border-navy {
+  border-color: var(--color-navy);
+}
+
+.hover\:bg-navy:hover {
+  background-color: var(--color-navy);
+}
+
+.hover\:text-navy\:white:hover {
+  color: white !important;
+}
+
+.hover\:text-navy\/80:hover {
+  color: color-mix(in srgb, var(--color-navy) 80%, transparent);
+}
+
+/* Navy color opacity variants for Tailwind compatibility */
+.text-navy\/10 {
+  color: color-mix(in srgb, var(--color-navy) 10%, transparent);
+}
+
+.text-navy\/15 {
+  color: color-mix(in srgb, var(--color-navy) 15%, transparent);
+}
+
+.text-navy\/30 {
+  color: color-mix(in srgb, var(--color-navy) 30%, transparent);
+}
+
+.text-navy\/40 {
+  color: color-mix(in srgb, var(--color-navy) 40%, transparent);
+}
+
+.text-navy\/55 {
+  color: color-mix(in srgb, var(--color-navy) 55%, transparent);
+}
+
+.text-navy\/60 {
+  color: color-mix(in srgb, var(--color-navy) 60%, transparent);
+}
+
+.text-navy\/85 {
+  color: color-mix(in srgb, var(--color-navy) 85%, transparent);
+}
+
+.text-navy\/90 {
+  color: color-mix(in srgb, var(--color-navy) 90%, transparent);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.809 0.105 251.813);
+  --chart-2: oklch(0.623 0.214 259.815);
+  --chart-3: oklch(0.546 0.245 262.881);
+  --chart-4: oklch(0.488 0.243 264.376);
+  --chart-5: oklch(0.424 0.199 265.638);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}

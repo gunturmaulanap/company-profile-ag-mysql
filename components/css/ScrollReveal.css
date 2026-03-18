@@ -1,0 +1,19 @@
+.scroll-reveal {
+  margin-top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+}
+
+.scroll-reveal-text {
+  color: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+.word {
+  display: inline-block;
+  /* PERBAIKAN MUTLAK: will-change DIHAPUS TOTAL DARI SINI.
+     Desktop tetap memiliki animasi mulus dari GSAP, 
+     dan iPhone tidak akan mati kehabisan RAM. */
+}

@@ -1,0 +1,36 @@
+.curved-loop-jacket {
+  min-height: auto;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.curved-loop-svg {
+  user-select: none;
+  width: 100%;
+  aspect-ratio: 100 / 12;
+  overflow: visible;
+  display: block;
+  font-size: 4rem;
+  fill: #1e3a5f;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (min-width: 768px) {
+  .curved-loop-svg {
+    font-size: 5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .curved-loop-svg {
+    font-size: 6rem;
+  }
+}
